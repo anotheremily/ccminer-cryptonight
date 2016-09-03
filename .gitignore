@@ -1,1 +1,5 @@
 cpuminer-config.h
+
+ccminer.sln
+ccminer.vcxproj
+ccminer.vcxproj.filters
