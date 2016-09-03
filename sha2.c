@@ -73,7 +73,7 @@ void sha256_init(uint32_t *state)
 	    S[(70 - i) % 8], S[(71 - i) % 8], \
 	    W[i] + sha256_k[i])
 
-#ifndef EXTERN_SHA256
+// #ifndef EXTERN_SHA256
 
 /*
  * SHA256 block compression function.  The 256-bit state is transformed via
@@ -171,7 +171,7 @@ void sha256_transform(uint32_t *state, const uint32_t *block, int swap)
 		state[i] += S[i];
 }
 
-#endif /* EXTERN_SHA256 */
+// #endif /* EXTERN_SHA256 */
 
 
 static const uint32_t sha256d_hash1[16] = {
@@ -249,12 +249,9 @@ static inline void sha256d_prehash(uint32_t *S, const uint32_t *W)
 	RNDr(S, W, 2);
 }
 
-#ifdef EXTERN_SHA256
+/*void sha256d_ms(uint32_t *hash, uint32_t *W,
+	const uint32_t *midstate, const uint32_t *prehash);*/
 
-void sha256d_ms(uint32_t *hash, uint32_t *W,
-	const uint32_t *midstate, const uint32_t *prehash);
-
-#else
 
 static inline void sha256d_ms(uint32_t *hash, uint32_t *W,
 	const uint32_t *midstate, const uint32_t *prehash)
@@ -460,8 +457,6 @@ static inline void sha256d_ms(uint32_t *hash, uint32_t *W,
 	         + S[60] + sha256_k[60]
 	         + sha256_h[7];
 }
-
-#endif /* EXTERN_SHA256 */
 
 #if HAVE_SHA256_4WAY
 
