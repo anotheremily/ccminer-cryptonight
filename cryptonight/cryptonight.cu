@@ -30,17 +30,17 @@ extern "C" int cuda_num_devices()
     }
 
     int maj = version / 1000, min = version % 100; // same as in deviceQuery sample
-    if (maj < 5 || (maj == 5 && min < 5))
+    /*if (maj < 5 || (maj == 5 && min < 5))
     {
         applog(LOG_ERR, "Driver does not support CUDA %d.%d API! Update your nVidia driver!", 5, 5);
-        exit(1);
-    }
+        //exit(1);
+    }*/
 
     int GPU_N;
     err = cudaGetDeviceCount(&GPU_N);
     if (err != cudaSuccess)
     {
-        applog(LOG_ERR, "Unable to query number of CUDA devices! Is an nVidia driver installed?");
+        applog(LOG_ERR, "Unable to query number of CUDA devices! Is an nVidia driver installed (a)?");
         exit(1);
     }
     return GPU_N;
@@ -53,7 +53,7 @@ extern "C" void cuda_deviceinfo()
     err = cudaGetDeviceCount(&GPU_N);
     if (err != cudaSuccess)
     {
-        applog(LOG_ERR, "Unable to query number of CUDA devices! Is an nVidia driver installed?");
+        applog(LOG_ERR, "Unable to query number of CUDA devices! Is an nVidia driver installed? (b)");
         exit(1);
     }
 
@@ -174,14 +174,14 @@ extern "C" int scanhash_cryptonight(int thr_id, uint32_t *pdata,
 			cryptonight_hash(vhash64, tempdata, 76);
 
             if( (vhash64[7] <= Htarg) && fulltest(vhash64, ptarget) ) {
-                
+
 			    *nonceptr = foundNonce;
                 *hashes_done = foundNonce - first_nonce + 1;
                 return 1;
 			} else {
 				applog(LOG_INFO, "GPU #%d: result for nonce $%08X does not validate on CPU!", thr_id, foundNonce);
 			}
-		
+
             foundNonce = 0xffffffff;
         }
 
