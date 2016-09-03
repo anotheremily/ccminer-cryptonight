@@ -3,6 +3,10 @@ ccminer-cryptonight
 A modification of Christian Buchner's &amp; Christian H.'s
 ccminer project by tsiv for Cryptonight mining.
 
+September 3rd 2016
+------------------
+Fork for Jetson TK1. See INSTALL for installation instructions.
+
 July 5th 2014
 -------------
 
