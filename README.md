@@ -3,6 +3,8 @@ This is a CUDA accelerated mining application for use with Monero and other coin
 
 THIS PROGRAM IS PROVIDED "AS-IS", USE IT AT YOUR OWN RISK!
 
+**Note that this fork is being maintained strictly for use on Jetson TK1 Development Boards. It may not run on other platforms with these changes.**
+
 ## Installation
 Requires CUDA SDK 6.0 which can be found here: https://developer.nvidia.com/linux-tegra-rel-19
 
