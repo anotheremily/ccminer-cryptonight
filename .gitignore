@@ -3,3 +3,14 @@ cpuminer-config.h
 ccminer.sln
 ccminer.vcxproj
 ccminer.vcxproj.filters
+
+aclocal.m4
+compile
+config.guess
+config.sub
+configure
+cpuminer-config.h
+cpuminer-config.h.in
+depcomp
+missing
+Makefile.in

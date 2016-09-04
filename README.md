@@ -29,11 +29,14 @@ Then download the 6.0 SDK and install using these instructions: http://elinux.or
 
 The following instructions may be simplified later, but for now:
 
-- Run `./autorun.sh`
-- Run `./configure`
-- Manually edit all `Makefile`, `Makefile.am`, and `Makefile.in` and remove the -msse2 flag from the gcc flags. It will appear once per file.
-- Run `make`
-- You should then be able to use the mining software.
+- Run toolchain
+
+    aclocal
+    autoheader
+    automake --add-missing --copy --gnu
+    autoconf
+    ./configure "CFLAGS=-O3" "CXXFLAGS=-O3" --with-cuda=/usr/local/cuda
+    make
 
 So far it doesn't seem the Jetson performs well at all (worse than expected.) Looking into if this can be improved.
 
