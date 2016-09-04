@@ -110,7 +110,7 @@ static inline void affine_to_cpu(int id, int cpu)
 {
 }
 #endif
-		
+
 enum workio_commands {
 	WC_GET_WORK,
 	WC_SUBMIT_WORK,
@@ -506,7 +506,7 @@ bool rpc2_job_decode(const json_t *job, struct work *work) {
 static bool work_decode(const json_t *val, struct work *work)
 {
 	int i;
-	
+
     if(jsonrpc_2) {
         return rpc2_job_decode(val, work);
     }
@@ -595,7 +595,7 @@ static void share_result(int result, const char *reason)
 		hashrate += thr_hashrates[i];
 	result ? accepted_count++ : rejected_count++;
 	pthread_mutex_unlock(&stats_lock);
-	
+
     if (opt_algo == ALGO_CRYPTONIGHT) {
         applog(LOG_INFO, "accepted: %lu/%lu (%.2f%%), %.2f H/s %s",
                 accepted_count, accepted_count + rejected_count,
@@ -1053,7 +1053,7 @@ static void stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
             memcpy(merkle_root + 32, sctx->job.merkle[i], 32);
             sha256d(merkle_root, merkle_root, 64);
         }
-        
+
         /* Increment extranonce2 */
         for (i = 0; i < (int)sctx->xnonce2_size && !++sctx->job.xnonce2[i]; i++);
 
@@ -1115,7 +1115,7 @@ static void *miner_thread(void *userdata)
 
     applog(LOG_INFO, "GPU #%d: %s (%d SMX), using %d blocks of %d threads",
         device_map[thr_id], device_name[thr_id], device_mpcount[thr_id], device_config[thr_id][0], device_config[thr_id][1]);
-    
+
     if( device_config[thr_id][0] % device_mpcount[thr_id] )
         applog(LOG_INFO, "GPU #%d: Warning: block count %d is not a multiple of SMX count %d.",
             device_map[thr_id], device_config[thr_id][0], device_mpcount[thr_id]);
@@ -1181,7 +1181,7 @@ static void *miner_thread(void *userdata)
                     max64 = 0x1fffLL; break;
                 case ALGO_CRYPTONIGHT:
                     max64 = 0x200LL; break;
-                default: 
+                default:
                     max64 = 0xfffffLL; break;
             }
 		}
@@ -1210,7 +1210,7 @@ static void *miner_thread(void *userdata)
 			pthread_mutex_unlock(&stats_lock);
 		}
 		if (!opt_quiet) {
-			
+
             if(opt_algo == ALGO_CRYPTONIGHT) {
                 applog(LOG_INFO, "GPU #%d: %s, %.2f H/s",
                     device_map[thr_id], device_name[thr_id], thr_hashrates[thr_id]);
@@ -1227,7 +1227,7 @@ static void *miner_thread(void *userdata)
 			for (i = 0; i < opt_n_threads && thr_hashrates[i]; i++)
 				hashrate += thr_hashrates[i];
 			if (i == opt_n_threads) {
-			
+
                 if(opt_algo == ALGO_CRYPTONIGHT)
                     applog(LOG_INFO, "Total: %.2f H/s", hashrate);
                 else {
@@ -1279,7 +1279,7 @@ start:
 		lp_url = hdr_path;
 		hdr_path = NULL;
 	}
-	
+
 	/* absolute path, on current server */
 	else {
 		copy_start = (*hdr_path == '/') ? (hdr_path + 1) : hdr_path;
@@ -1319,7 +1319,7 @@ start:
 			goto out;
 		}
 		if (likely(val)) {
-			
+
             if (!jsonrpc_2) {
                 soval = json_object_get(json_object_get(val, "result"), "submitold");
                 submit_old = soval ? json_is_true(soval) : false;
@@ -1465,8 +1465,8 @@ static void *stratum_thread(void *userdata)
                 }
             }
         }
-		
-		if (!stratum_socket_full(&stratum, 120)) {
+
+		if (!stratum_socket_full(&stratum, 500)) {
 			applog(LOG_ERR, "Stratum connection timed out");
 			s = NULL;
 		} else
@@ -1504,18 +1504,18 @@ void parse_device_config( char *config, int *blocks, int *threads )
 {
     char *p;
     int tmp_blocks, tmp_threads;
-    
+
     if( config == NULL ) goto usedefault;
 
 
     p = strtok(config, "x");
     if(!p)
         goto usedefault;
-    
+
     tmp_threads = atoi(p);
     if( tmp_threads < 4 || tmp_threads > 1024 )
         goto usedefault;
-    
+
     p = strtok(NULL, "x");
     if(!p)
         goto usedefault;
@@ -1618,8 +1618,8 @@ static void parse_arg (int key, char *arg)
 	case 'o':			/* --url */
 		p = strstr(arg, "://");
 		if (p) {
-			if (strncasecmp(arg, "http://", 7) 
-                    && strncasecmp(arg, "https://", 8) 
+			if (strncasecmp(arg, "http://", 7)
+                    && strncasecmp(arg, "https://", 8)
                     && strncasecmp(arg, "stratum+tcp://", 14))
 				show_usage_and_exit(1);
 			free(rpc_url);
@@ -1999,7 +1999,7 @@ int main(int argc, char *argv[])
 	thr_info = (struct thr_info *)calloc(opt_n_threads + 3, sizeof(*thr));
 	if (!thr_info)
 		return 1;
-	
+
 	thr_hashrates = (double *) calloc(opt_n_threads, sizeof(double));
 	if (!thr_hashrates)
 		return 1;
@@ -2087,4 +2087,3 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
