@@ -30,11 +30,11 @@ extern "C" int cuda_num_devices()
     }
 
     int maj = version / 1000, min = version % 100; // same as in deviceQuery sample
-    /*if (maj < 5 || (maj == 5 && min < 5))
+    if (maj != 6 && min != 0)
     {
-        applog(LOG_ERR, "Driver does not support CUDA %d.%d API! Update your nVidia driver!", 5, 5);
-        //exit(1);
-    }*/
+        applog(LOG_ERR, "Driver does not support CUDA %d.%d API! Update your nVidia driver!", 6, 0);
+        exit(1);
+    }
 
     int GPU_N;
     err = cudaGetDeviceCount(&GPU_N);
@@ -66,6 +66,7 @@ extern "C" void cuda_deviceinfo()
         device_mpcount[i] = props.multiProcessorCount;
         device_arch[i][0] = props.major;
         device_arch[i][1] = props.minor;
+        applog(LOG_ERR, "MP Count: %d, arch %d %d", props.multiProcessorCount, props.major, props.minor);
     }
 }
 
@@ -90,7 +91,7 @@ static bool substringsearch(const char *haystack, const char *needle, int &match
     return false;
 }
 
-// CUDA Gerät nach Namen finden (gibt Geräte-Index zurück oder -1)
+// CUDA Gerï¿½t nach Namen finden (gibt Gerï¿½te-Index zurï¿½ck oder -1)
 extern "C" int cuda_finddevice(char *name)
 {
     int num = cuda_num_devices();
