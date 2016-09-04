@@ -27,9 +27,7 @@ Then download the 6.0 SDK and install using these instructions: http://elinux.or
 	echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
 	source ~/.bashrc
 
-The following instructions may be simplified later, but for now:
-
-- Run toolchain
+The following instructions may be simplified later, but for now, run the toolchain. This requires GNU autotools.
 
     aclocal
     autoheader
