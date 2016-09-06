@@ -203,7 +203,7 @@ int longpoll_thr_id = -1;
 int stratum_thr_id = -1;
 struct work_restart *work_restart = NULL;
 static struct stratum_ctx stratum;
-int opt_cn_threads = 8;
+int opt_cn_threads = 4;
 int opt_cn_blocks = 40;
 
 bool jsonrpc_2 = false;
@@ -1466,7 +1466,7 @@ static void *stratum_thread(void *userdata)
             }
         }
 
-		if (!stratum_socket_full(&stratum, 500)) {
+		if (!stratum_socket_full(&stratum, 240)) {
 			applog(LOG_ERR, "Stratum connection timed out");
 			s = NULL;
 		} else
